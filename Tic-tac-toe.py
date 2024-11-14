@@ -9,6 +9,10 @@ root.title("Tic-Tac-Toe")
 board = [" " for _ in range(9)]
 current_player = "X"
 
+# Create a label to display the game status
+status_label = tk.Label(root, text="Player X's turn", font=('normal', 20))
+status_label.grid(row=3, column=0, columnspan=3)
+
 # Function to check for a win
 def check_win():
     win_conditions = [(0, 1, 2), (3, 4, 5), (6, 7, 8), 
@@ -30,13 +34,19 @@ def button_click(index):
         board[index] = current_player
         buttons[index].config(text=current_player)
         if check_win():
-            messagebox.showinfo("Tic-Tac-Toe", f"Player {current_player} wins!")
-            reset_game()
+            status_label.config(text=f"Player {current_player} wins!")
+            disable_buttons()
         elif check_draw():
-            messagebox.showinfo("Tic-Tac-Toe", "It's a draw!")
-            reset_game()
+            status_label.config(text="It's a draw!")
+            disable_buttons()
         else:
             current_player = "O" if current_player == "X" else "X"
+            status_label.config(text=f"Player {current_player}'s turn")
+
+# Function to disable all buttons
+def disable_buttons():
+    for button in buttons:
+        button.config(state=tk.DISABLED)
 
 # Function to reset the game
 def reset_game():
@@ -44,7 +54,8 @@ def reset_game():
     board = [" " for _ in range(9)]
     current_player = "X"
     for button in buttons:
-        button.config(text=" ")
+        button.config(text=" ", state=tk.NORMAL)
+    status_label.config(text="Player X's turn")
 
 # Create buttons for the game board
 buttons = []
@@ -52,6 +63,10 @@ for i in range(9):
     button = tk.Button(root, text=" ", font=('normal', 40), width=5, height=2, command=lambda i=i: button_click(i))
     button.grid(row=i//3, column=i%3)
     buttons.append(button)
+
+# Create a reset button
+reset_button = tk.Button(root, text="Reset", font=('normal', 20), command=reset_game)
+reset_button.grid(row=4, column=0, columnspan=3)
 
 # Run the Tkinter event loop
 root.mainloop()
