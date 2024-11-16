@@ -56,19 +56,21 @@ def reset_game():
     for button in buttons:
         button.config(text=" ", state=tk.NORMAL)
     status_label.config(text="Player X's turn")
+    show_reset_button()
 
 # Function to confirm reset
 def confirm_reset():
-    confirm_window = tk.Toplevel(root)
-    confirm_window.title("Confirm Reset")
-    confirm_label = tk.Label(confirm_window, text="Are you sure you want to reset the game?", font=('normal', 14))
-    confirm_label.pack(pady=10)
-    confirm_button_frame = tk.Frame(confirm_window)
-    confirm_button_frame.pack(pady=10)
-    yes_button = tk.Button(confirm_button_frame, text="Yes", font=('normal', 14), command=lambda: [reset_game(), confirm_window.destroy()])
-    yes_button.grid(row=0, column=0, padx=10)
-    no_button = tk.Button(confirm_button_frame, text="No", font=('normal', 14), command=confirm_window.destroy)
-    no_button.grid(row=0, column=1, padx=10)
+    reset_button.grid_remove()
+    confirm_label.grid(row=4, column=0, columnspan=3)
+    yes_button.grid(row=5, column=0, padx=10)
+    no_button.grid(row=5, column=1, padx=10)
+
+# Function to show reset button
+def show_reset_button():
+    confirm_label.grid_remove()
+    yes_button.grid_remove()
+    no_button.grid_remove()
+    reset_button.grid(row=4, column=0, columnspan=3)
 
 # Create buttons for the game board
 buttons = []
@@ -80,6 +82,11 @@ for i in range(9):
 # Create a reset button
 reset_button = tk.Button(root, text="Reset", font=('normal', 20), command=confirm_reset)
 reset_button.grid(row=4, column=0, columnspan=3)
+
+# Create confirmation widgets
+confirm_label = tk.Label(root, text="Are you sure you want to reset the game?", font=('normal', 14))
+yes_button = tk.Button(root, text="Yes", font=('normal', 14), command=reset_game)
+no_button = tk.Button(root, text="No", font=('normal', 14), command=show_reset_button)
 
 # Run the Tkinter event loop
 root.mainloop()
