@@ -44,7 +44,7 @@ def create_game_window():
         global current_player
         if board[index] == " ":
             board[index] = current_player
-            buttons[index].config(text=current_player, fg="#2c3e50")
+            buttons[index].config(text=current_player, fg="#2c3e50", font=('normal', 24))
             if check_win():
                 status_label.config(text=f"Player {current_player} wins!")
                 disable_buttons()
@@ -66,7 +66,7 @@ def create_game_window():
         board = [" " for _ in range(9)]
         current_player = "X"
         for button in buttons:
-            button.config(text=" ", state=tk.NORMAL)
+            button.config(text=" ", state=tk.NORMAL, font=('normal', 24))
         status_label.config(text="Player X's turn")
         show_reset_button()
 
@@ -89,7 +89,7 @@ def create_game_window():
     button_frame = tk.Frame(game_window, bg="#2c3e50")
     button_frame.pack(pady=10)
     for i in range(9):
-        button = tk.Button(button_frame, text=" ", font=('normal', 20), width=4, height=2, bg="#ecf0f1", command=lambda i=i: button_click(i))
+        button = tk.Button(button_frame, text=" ", font=('normal', 24), width=4, height=2, bg="#ecf0f1", command=lambda i=i: button_click(i))
         button.grid(row=i//3, column=i%3, padx=5, pady=5)
         buttons.append(button)
 
