@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 # Initialize the main window
 root = tk.Tk()
@@ -56,12 +57,21 @@ def reset_game():
         button.config(text=" ", state=tk.NORMAL)
     status_label.config(text="Player X's turn")
 
+# Function to confirm reset
+def confirm_reset():
+    if messagebox.askyesno("Confirm Reset", "Are you sure you want to reset the game?"):
+        reset_game()
+
 # Create buttons for the game board
 buttons = []
 for i in range(9):
     button = tk.Button(root, text=" ", font=('normal', 40), width=5, height=2, command=lambda i=i: button_click(i))
     button.grid(row=i//3, column=i%3)
     buttons.append(button)
+
+# Create a reset button
+reset_button = tk.Button(root, text="Reset", font=('normal', 20), command=confirm_reset)
+reset_button.grid(row=4, column=0, columnspan=3)
 
 # Run the Tkinter event loop
 root.mainloop()
