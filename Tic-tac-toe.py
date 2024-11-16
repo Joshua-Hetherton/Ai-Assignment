@@ -63,7 +63,7 @@ def confirm_reset():
     reset_button.grid_remove()
     confirm_label.grid(row=4, column=0, columnspan=3)
     yes_button.grid(row=5, column=0, padx=10)
-    no_button.grid(row=5, column=1, padx=10)
+    no_button.grid(row=5, column=2, padx=10)
 
 # Function to show reset button
 def show_reset_button():
