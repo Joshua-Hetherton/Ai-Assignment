@@ -59,8 +59,16 @@ def reset_game():
 
 # Function to confirm reset
 def confirm_reset():
-    if messagebox.askyesno("Confirm Reset", "Are you sure you want to reset the game?"):
-        reset_game()
+    confirm_window = tk.Toplevel(root)
+    confirm_window.title("Confirm Reset")
+    confirm_label = tk.Label(confirm_window, text="Are you sure you want to reset the game?", font=('normal', 14))
+    confirm_label.pack(pady=10)
+    confirm_button_frame = tk.Frame(confirm_window)
+    confirm_button_frame.pack(pady=10)
+    yes_button = tk.Button(confirm_button_frame, text="Yes", font=('normal', 14), command=lambda: [reset_game(), confirm_window.destroy()])
+    yes_button.grid(row=0, column=0, padx=10)
+    no_button = tk.Button(confirm_button_frame, text="No", font=('normal', 14), command=confirm_window.destroy)
+    no_button.grid(row=0, column=1, padx=10)
 
 # Create buttons for the game board
 buttons = []
